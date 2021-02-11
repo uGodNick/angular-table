@@ -1,0 +1,68 @@
+<div class="container-fluid header">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h1>Страница загрузки</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container d-flex flex-column form-group">
+
+  <div class="d-flex justify-content-between flex-wrap align-items-center">
+
+    <h2>Введете или загрузите данные:</h2>
+
+    <label class="btn btn-primary" for="file">Выбрать файл</label>
+    <input class="d-none" id="file" type="file" (change)="onLoadFile($event)">
+
+  </div>
+
+  <textarea
+    [(ngModel)]="data"
+    [class.is-invalid]="error !== ''"
+    [placeholder]="format === 'json'? '[{k1:v1, k2:v1},{k1:v1, k2:v1}]': 'heading1,heading2,heading3,heading4,heading5\n'+
+                  'value1_1,value2_1,value3_1,value4_1,value5_1\n'+
+                  'value1_2,value2_2,value3_2,value4_2,value5_2'"
+    class="form-control"
+    rows="10"
+  ></textarea>
+
+  <div class="d-flex mt-2 justify-content-between">
+
+    <span class="error">{{error}}</span>
+
+    <div class="d-flex">
+
+      <div class="form-check form-check-inline">
+        <input
+          (change)="format = 'json'"
+          [checked]="format === 'json'"
+          class="form-check-input"
+          id="json"
+          name="format"
+          type="radio"
+          value="json">
+        <label class="form-check-label" for="json">json</label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input
+          (change)="format = 'csv'"
+          [checked]="format == 'csv'"
+          class="form-check-input"
+          id="csv"
+          name="format"
+          type="radio"
+          value="csv"
+        >
+        <label class="form-check-label" for="csv">csv</label>
+      </div>
+
+      <button class="btn btn-success" (click)="onContinue()">Продолжить</button>
+
+    </div>
+
+  </div>
+
+
+</div>

@@ -1,0 +1,44 @@
+<div class="container-fluid header">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h1>Страница редактирования</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="row mb-3">
+
+    <div class="col d-flex justify-content-center">
+      <button class="btn btn-primary" [routerLink]="['/table']">Назад</button>
+    </div>
+    <div class="cold-flex justify-content-center">
+      <button class="btn btn-success" (click)="onSave()">Сохранить</button>
+    </div>
+    <div class="col d-flex justify-content-center">
+      <button class="btn btn-danger" (click)="onDelete()">Удалить</button>
+    </div>
+
+  </div>
+
+  <table class="table">
+
+    <thead class="thead-light">
+      <tr>
+        <th>Ключ</th>
+        <th>Значение</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let key of item | keyvalue; let i = index">
+        <th>{{key.key}}</th>
+        <th>
+          <input class="form-control" type="text" [(ngModel)]="changedValue[i]">
+        </th>
+      </tr>
+    </tbody>
+
+  </table>
+</div>

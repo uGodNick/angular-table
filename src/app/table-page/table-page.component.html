@@ -1,0 +1,48 @@
+<div class="container-fluid header">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h1>Таблица</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="row mb-3">
+
+    <div class="col d-flex justify-content-end">
+      <button class="btn btn-primary" [routerLink]="['/unload']">Выгрузить</button>
+    </div>
+
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col">
+      <table class="table table-bordered table-hover">
+
+        <thead class="thead-light">
+        <tr>
+          <th >#</th>
+          <th *ngFor="let key of jsonFile[0] | keyvalue">
+            {{key.key}}
+          </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr
+          [routerLink]="['/edit', i]"
+          *ngFor="let obj of jsonFile; let i = index"
+        >
+          <th>{{i + 1}}</th>
+          <th *ngFor="let key of obj | keyvalue">
+            {{key.value}}
+          </th>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+</div>

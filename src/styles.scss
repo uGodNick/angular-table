@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+textarea {
+  resize: none;
+}
+
+tbody tr {
+  cursor: pointer;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+}
+
+.header {
+  background-color: #FF6900;
+  margin-bottom: 50px;
+}
+
+.header h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75px;
+  color: #fff;
+}
+
+
