@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {TableService} from '../table.service';
+import {TableService} from '../services/table.service';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 
@@ -34,53 +34,27 @@ export class UnloadPageComponent {
     }
   }
 
-  toCsv() {
-    try {
-      JSON.parse(this.data)
-    } catch (e) {
-      this.onError('Не удалось конвертировать в csv')
-      return
-    }
-    let items = JSON.parse(this.data)
-
-    const replacer = (key: any, value: any) => value === null ? '' : value
-    const header = Object.keys(items[0])
-    this.data = [
-      header.join(','),
-      ...items.map((row:any) => header.map((fieldName) => JSON.stringify(row[fieldName], replacer)).join(','))
-    ].join('\r\n')
-  }
-
   onDownload(){
-    let file
+    let blobPart
+    let type
 
     if (this.format === 'json') {
-
-      file = new Blob(
-        [
-          JSON.stringify({
-            items: this.table
-          })
-        ], {
-          type: 'application/json'
-        }
-      )
+      // создание json объекта с ключом "items", в котором хранятся все введенные объекты
+      blobPart = JSON.stringify({items: this.table})
+      type = 'application/json'
     } else {
-      file = new Blob(
-        [
-          this.data
-        ], {
-          type: 'text/csv'
-        }
-      )
+      blobPart = this.data
+      type = 'text/csv'
     }
 
+    const file = new Blob([blobPart], {type: type})
     const url: string = URL.createObjectURL(file)
 
     setTimeout(() => URL.revokeObjectURL(url), 500)
-
     this.url = this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
+  toCsv() {
 
+  }
 }

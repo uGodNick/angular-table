@@ -1,4 +1,4 @@
-<div class="container-fluid header">
+<div class="container-fluid header mb-5">
   <div class="row justify-content-center">
     <div class="col">
       <h1>Страница загрузки</h1>
@@ -12,22 +12,25 @@
 
     <h2>Введете или загрузите данные:</h2>
 
-    <label class="btn btn-primary" for="file">Выбрать файл</label>
-    <input class="d-none" id="file" type="file" (change)="onLoadFile($event)">
+    <label class="btn btn-primary" for="file">Загрузить файл</label>
+    <input (change)="onLoadFile($event)" class="d-none" id="file" type="file">
 
   </div>
 
   <textarea
     [(ngModel)]="data"
     [class.is-invalid]="error !== ''"
-    [placeholder]="format === 'json'? '[{k1:v1, k2:v1},{k1:v1, k2:v1}]': 'heading1,heading2,heading3,heading4,heading5\n'+
-                  'value1_1,value2_1,value3_1,value4_1,value5_1\n'+
-                  'value1_2,value2_2,value3_2,value4_2,value5_2'"
-    class="form-control"
+    [placeholder]="
+        format === 'json'? '[{k1:v1, k2:v1},{k1:v1, k2:v1}]':
+        'heading1,heading2,heading3\n'+
+        'value1_1,value2_1,value3_1\n'+
+        'value1_2,value2_2,value3_2'
+      "
+    class="form-control mt-2 mb-3"
     rows="10"
   ></textarea>
 
-  <div class="d-flex mt-2 justify-content-between">
+  <div class="d-flex justify-content-between">
 
     <span class="error">{{error}}</span>
 
@@ -58,11 +61,10 @@
         <label class="form-check-label" for="csv">csv</label>
       </div>
 
-      <button class="btn btn-success" (click)="onContinue()">Продолжить</button>
+      <button (click)="onContinue()" class="btn btn-success">Продолжить</button>
 
     </div>
 
   </div>
-
 
 </div>

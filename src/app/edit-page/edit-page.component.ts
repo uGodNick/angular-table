@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TableService} from '../table.service';
+import {TableService} from '../services/table.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -38,11 +38,9 @@ export class EditPageComponent implements OnInit {
   onSave() {
     let i = 0;
     for (let key in this.item) {
-
       this.changedItem[key] = this.changedValue[i]
       i++
     }
     this.tableService.updateItem(this.changedItem, this.id)
-
   }
 }
