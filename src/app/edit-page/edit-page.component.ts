@@ -12,7 +12,6 @@ export class EditPageComponent implements OnInit {
   id!: number
 
   changedValue: any[] = []
-  changedItem: any = {}
 
   constructor(
     private route: ActivatedRoute,
@@ -21,9 +20,14 @@ export class EditPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // поиск элемента таблицы по параметру
     this.route.params.subscribe((params) => {
+
       this.id = params.id
-      this.item = this.tableService.getById(this.id)
+      this.item = this.tableService.getItemById(this.id)
+
+      // копирование значений в новый массив
+      // для хранения изменений этих значений
       for (let key in this.item) {
         this.changedValue.push(this.item[key])
       }
@@ -31,16 +35,18 @@ export class EditPageComponent implements OnInit {
   }
 
   onDelete() {
-    this.tableService.deleteById(this.id)
+    this.tableService.deleteItemById(this.id)
     this.router.navigate(['/table'])
   }
 
   onSave() {
+    const changedItem: any = {}
     let i = 0;
+    // копирование измененных значений в новый элемент таблицы
     for (let key in this.item) {
-      this.changedItem[key] = this.changedValue[i]
+      changedItem[key] = this.changedValue[i]
       i++
     }
-    this.tableService.updateItem(this.changedItem, this.id)
+    this.tableService.updateItem(changedItem, this.id)
   }
 }

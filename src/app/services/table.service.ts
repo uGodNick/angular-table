@@ -15,20 +15,30 @@ export class TableService {
     return this.table
   }
 
-  getById(id: number) {
+  resetTable() {
+    this.table = []
+  }
+
+  getItemById(id: number) {
     return this.table[id]
   }
 
-  deleteById(id: number) {
+  deleteItemById(id: number) {
     this.table.splice(id, 1)
+  }
+
+  liftItemById(id: number) {
+    // переместить элемент таблицы на 1 индекс вперед
+    [this.table[id - 1], this.table[id]] = [this.table[id], this.table[id - 1]]
+  }
+
+  lowerItemById(id: number) {
+    // переместить элемент таблицы на 1 индекс назад
+    [this.table[id + 1], this.table[id]] = [this.table[id], this.table[id + 1]]
   }
 
   updateItem(item: object, id: number) {
     this.table[id] = item
-  }
-
-  resetTable() {
-    this.table = []
   }
 }
 

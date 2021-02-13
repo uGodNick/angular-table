@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {TableService} from '../services/table.service';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {ConversionService} from '../services/conversion.service';
 
 
 @Component({
@@ -11,13 +12,14 @@ export class UnloadPageComponent {
 
   table: object[] = this.tableService.getTable()
   data: string = JSON.stringify(this.table)
-  url: SafeUrl = ''
-  format: string = 'json'
-  error: string = ''
+  format = 'json'
+  error  = ''
+  url!: SafeUrl
 
   constructor(
     private tableService: TableService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private conversion: ConversionService
   ) {}
 
   onError(err: string) {
@@ -26,12 +28,29 @@ export class UnloadPageComponent {
   }
 
   toJson() {
+    if (this.format === 'json') {
+      return
+    }
     try {
-      this.data = JSON.stringify(this.table)
+      this.data = JSON.stringify(this.conversion.CsvToJson(this.data))
     } catch (e) {
       this.onError('Не удалось конвертировать в json')
       return
     }
+    this.format = 'json'
+  }
+
+  toCsv() {
+    if (this.format === 'csv') {
+      return
+    }
+    try {
+      this.data = this.conversion.JsonToCsv(JSON.parse(this.data))
+    } catch (e) {
+      this.onError('Не удалось конвертировать в csv')
+      return
+    }
+    this.format = 'csv'
   }
 
   onDownload(){
@@ -47,14 +66,17 @@ export class UnloadPageComponent {
       type = 'text/csv'
     }
 
+    // создание файла
     const file = new Blob([blobPart], {type: type})
+
+    // создание ссылки на файл
     const url: string = URL.createObjectURL(file)
 
+    // таймер удаления ссылки на файл
     setTimeout(() => URL.revokeObjectURL(url), 500)
+
+    // присваивание безопасной ссылки
     this.url = this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
-  toCsv() {
-
-  }
 }

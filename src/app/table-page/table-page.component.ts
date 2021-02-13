@@ -12,4 +12,12 @@ export class TablePageComponent {
   constructor(
     private tableService: TableService
   ) {}
+
+  toLift(index: number) {
+    this.tableService.liftItemById(index)
+  }
+
+  toLower(index: number) {
+    this.tableService.lowerItemById(index)
+  }
 }

@@ -51,6 +51,20 @@ export class LoadPageComponent {
         return
       }
     }
+    // переменная с массивом ключей-образцов
+    const keyPattern = Object.keys(result[0])
+
+    // проверка на идентичность структуры объектов
+      for (let i = 1; i < result.length; i++) {
+        const itemKeys = Object.keys(result[i])
+        for (let j = 0; j < keyPattern.length; j++) {
+
+          if (itemKeys[j] !== keyPattern[j]) {
+            this.onError('Объекты имеют разные структуры')
+            return
+          }
+        }
+      }
 
     this.tableService.resetTable()
     this.tableService.setTable(result)

@@ -1,9 +1,5 @@
-<div class="container-fluid header mb-5">
-  <div class="row justify-content-center">
-    <div class="col">
-      <h1>Таблица</h1>
-    </div>
-  </div>
+<div class="container-fluid d-flex justify-content-center bg-dark mb-5">
+  <h1 class="text-white p-2">Таблица</h1>
 </div>
 
 <div class="container">
@@ -20,33 +16,43 @@
 
   </div>
 
-  <div class="row justify-content-center">
-    <div class="col">
-      <table class="table table-bordered table-hover">
+  <table class="table table-bordered table-hover">
 
-        <thead class="thead-light">
-        <tr>
-          <th >#</th>
-          <th *ngFor="let key of jsonFile[0] | keyvalue">
-            {{key.key}}
-          </th>
-        </tr>
-        </thead>
+    <thead class="thead-light">
+      <tr>
+        <th *ngIf="jsonFile.length !== 1">#</th>
+        <th *ngFor="let key of jsonFile[0] | keyvalue">
+          {{key.key}}
+        </th>
+      </tr>
+    </thead>
 
-        <tbody>
-        <tr
+    <tbody>
+      <tr
+        *ngFor="let obj of jsonFile; let i = index"
+      >
+        <th *ngIf="jsonFile.length !== 1">
+
+          <button
+            *ngIf="i !== 0"
+            (click)="toLift(i)"
+            class="btn btn-sm btn-light"
+            >🡅</button>
+          <button
+            *ngIf="i !== jsonFile.length - 1"
+            (click)="toLower(i)"
+            class="btn btn-sm btn-light"
+          >🡇</button>
+        </th>
+        <th
           [routerLink]="['/edit', i]"
-          *ngFor="let obj of jsonFile; let i = index"
+          *ngFor="let key of obj | keyvalue"
         >
-          <th>{{i + 1}}</th>
-          <th *ngFor="let key of obj | keyvalue">
-            {{key.value}}
-          </th>
-        </tr>
-        </tbody>
+          {{key.value}}
+        </th>
+      </tr>
+    </tbody>
 
-      </table>
-    </div>
-  </div>
+  </table>
 
 </div>

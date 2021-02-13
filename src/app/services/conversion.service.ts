@@ -13,14 +13,20 @@ export class ConversionService {
     const header = Object.keys(items[0])
 
     return [
-      header.join(','),
-      ...items.map((row:any) => header.map((fieldName) => JSON.stringify(row[fieldName], replacer)).join(','))
+      // создание первой строки заголовков
+      header.join(', '),
+      // создание остальных строк
+      ...items.map((row:any) => {
+        return header.map((fieldName) => {
+          return JSON.stringify(row[fieldName], replacer).slice(1, -1)
+        }).join(', ')
+      })
     ].join('\r\n')
   }
 
-  CsvToJson(items: string): object[] {
+  CsvToJson(item: string): object[] {
 
-    const lines = items.split(/\r\n|\n/)
+    const lines = item.split(/\r\n|\n/)
     const headers: string[] = lines[0].split(',')
     const result = []
 

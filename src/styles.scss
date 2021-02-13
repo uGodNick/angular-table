@@ -1,33 +1,9 @@
-a {
-  text-decoration: none;
+tbody th:not(:first-child) {
   cursor: pointer;
 }
 
-textarea {
-  resize: none;
-}
-
-tbody tr {
-  cursor: pointer;
-}
-
-.error {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: red;
-}
-
-.header {
-  background-color: #000;
-}
-
-.header h1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 75px;
-  color: #fff;
+label {
+  margin-bottom: 0;
 }
 
 

@@ -1,9 +1,5 @@
-<div class="container-fluid header">
-  <div class="row justify-content-center">
-    <div class="col">
-      <h1>Страница разгрузки</h1>
-    </div>
-  </div>
+<div class="container-fluid d-flex justify-content-center bg-dark mb-5">
+  <h1 class="text-white p-2">Страница разгрузки</h1>
 </div>
 
 <div class="container d-flex flex-column form-group">
@@ -20,13 +16,13 @@
 
   <div class="d-flex mt-2 justify-content-between">
 
-    <span class="error">{{error}}</span>
+    <span class="d-flex justify-content-center align-items-center text-danger">{{error}}</span>
 
     <div class="d-flex">
 
       <div class="form-check form-check-inline">
         <input
-          (change)="format = 'json'; toJson()"
+          (change)="toJson()"
           class="form-check-input"
           id="json"
           name="format"
@@ -39,7 +35,7 @@
 
       <div class="form-check form-check-inline">
         <input
-          (change)="format = 'csv'; toCsv()"
+          (change)="toCsv()"
           class="form-check-input"
           id="csv"
           name="format"
